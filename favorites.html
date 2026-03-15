@@ -1,15 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PUSHPAK - Favorites</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/theme.css">
+
 </head>
+
 <body onload="loadFav()">
-<h2>Favorites</h2>
-<div id="favItems"></div>
-<script src="/assets/js/main.js"></script>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+<div class="logo">🌿 PUSHPAK</div>
+
+<nav class="nav">
+
+<a href="index.html"
+data-en="Home"
+data-hi="होम">Home</a>
+
+<a href="plants.html"
+data-en="Plants & Trees"
+data-hi="पौधे और पेड़">Plants & Trees</a>
+
+<a href="garden.html"
+data-en="Garden Tips"
+data-hi="बागवानी टिप्स">Garden Tips</a>
+
+<a href="facts.html"
+data-en="Facts"
+data-hi="तथ्य">Facts</a>
+
+<a href="admin/admin_login.html"
+data-en="Admin"
+data-hi="एडमिन">Admin</a>
+
+<a href="#"
+data-en="About Us"
+data-hi="हमारे बारे में">About Us</a>
+
+</nav>
+
+<div class="header-controls">
+
+<button onclick="toggleTheme()">🌙</button>
+
+<button id="langBtn">हिंदी</button>
+
+<a href="cart.html">🛒</a>
+
+</div>
+
+</header>
+
+
+<!-- ================= PAGE CONTENT ================= -->
+
+<div class="layout">
+
+<main class="main-content">
+
+<h2
+data-en="Your Favorite Plants"
+data-hi="आपके पसंदीदा पौधे">
+❤️ Your Favorite Plants
+</h2>
+
+<div id="favItems" class="plant-grid"></div>
+
+</main>
+
+</div>
+
+
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/language.js"></script>
+<script src="assets/js/main.js"></script>
+
 </body>
 
 </html>

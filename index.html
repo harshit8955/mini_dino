@@ -1,79 +1,191 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/theme.css">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>PUSHPAK</title>
+
 </head>
+
 <body>
 
 <!-- ================= HEADER ================= -->
+
 <header class="header">
 
   <div class="logo">🌿 PUSHPAK</div>
 
   <nav class="nav">
-    <a href="/index.html">Home</a>
-    <a href="/plants.html">Plants & Trees</a>
-    <a href="#">Garden Tips</a>
-    <a href="#">Facts</a>
-    <a href="/admin/admin_login.html">Admin</a>
-    <a href="#">About Us</a>
+
+    <a href="#"
+    data-en="Home"
+    data-hi="होम">Home</a>
+
+    <a href="plants.html"
+    data-en="Plants & Trees"
+    data-hi="पौधे और पेड़">Plants & Trees</a>
+
+    <a href="garden.html"
+    data-en="Garden Tips"
+    data-hi="बागवानी टिप्स">Garden Tips</a>
+
+    <a href="facts.html"
+    data-en="Facts"
+    data-hi="तथ्य">Facts</a>
+
+    <a href="admin/admin_login.html"
+    data-en="Admin"
+    data-hi="एडमिन">Admin</a>
+
+    <a href="#"
+    data-en="About Us"
+    data-hi="हमारे बारे में">About Us</a>
+
   </nav>
 
   <div class="header-controls">
     <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
     <button id="langBtn">हिंदी</button>
-    <a href="/cart.html">🛒</a>
+    <a href="favorites.html">❤️</a>
+    <a href="cart.html">🛒</a>
+
   </div>
 
 </header>
 
 <!-- ================= MAIN LAYOUT ================= -->
+
 <div class="layout">
 
   <!-- ========== SIDEBAR ========== -->
+
   <aside class="sidebar">
 
-    <h3>Categories</h3>
+    <h3
+    data-en="Categories"
+    data-hi="श्रेणियाँ">Categories</h3>
 
     <ul id="categoryList">
-      <li class="active" data-category="all">All Plants</li>
-      <li data-category="flowering">Flowering</li>
-      <li data-category="indoor">Indoor</li>
-      <li data-category="outdoor">Outdoor</li>
-      <li data-category="fruit">Fruit</li>
-      <li data-category="succulent">Succulents</li>
+
+      <li class="active"
+      data-category="all"
+      data-en="All Plants"
+      data-hi="सभी पौधे">
+      All Plants
+      </li>
+
+      <li data-category="flowering"
+      data-en="Flowering"
+      data-hi="फूल वाले पौधे">
+      Flowering
+      </li>
+
+      <li data-category="indoor"
+      data-en="Indoor"
+      data-hi="इनडोर पौधे">
+      Indoor
+      </li>
+
+      <li data-category="outdoor"
+      data-en="Outdoor"
+      data-hi="आउटडोर पौधे">
+      Outdoor
+      </li>
+
+      <li data-category="fruit"
+      data-en="Fruit Plants"
+      data-hi="फल वाले पौधे">
+      Fruit
+      </li>
+
+      <li data-category="succulent"
+      data-en="Succulents"
+      data-hi="रसीले पौधे">
+      Succulents
+      </li>
+
     </ul>
 
-    <h3>Filters</h3>
+    <h3
+    data-en="Filters"
+    data-hi="फ़िल्टर">Filters</h3>
 
-    <label>Max Price (₹): <span id="priceValue">2000</span></label>
+    <label>
+      <span
+      data-en="Max Price"
+      data-hi="अधिकतम कीमत">
+      Max Price
+      </span>
+      (₹): <span id="priceValue">2000</span>
+    </label>
+
     <input type="range" id="priceFilter" min="100" max="2000" value="2000">
 
-    <label>Plant Size</label>
+    <label
+    data-en="Plant Size"
+    data-hi="पौधे का आकार">
+    Plant Size
+    </label>
+
     <select id="sizeFilter">
-      <option value="all">All</option>
-      <option value="small">Small</option>
-      <option value="medium">Medium</option>
-      <option value="large">Large</option>
+
+      <option value="all"
+      data-en="All"
+      data-hi="सभी">All</option>
+
+      <option value="small"
+      data-en="Small"
+      data-hi="छोटा">Small</option>
+
+      <option value="medium"
+      data-en="Medium"
+      data-hi="मध्यम">Medium</option>
+
+      <option value="large"
+      data-en="Large"
+      data-hi="बड़ा">Large</option>
+
     </select>
 
-    <label>Sunlight</label>
+    <label
+    data-en="Sunlight"
+    data-hi="धूप की आवश्यकता">
+    Sunlight
+    </label>
+
     <select id="sunFilter">
-      <option value="all">All</option>
-      <option value="low">Low</option>
-      <option value="medium">Medium</option>
-      <option value="high">High</option>
+
+      <option value="all"
+      data-en="All"
+      data-hi="सभी">All</option>
+
+      <option value="low"
+      data-en="Low"
+      data-hi="कम">Low</option>
+
+      <option value="medium"
+      data-en="Medium"
+      data-hi="मध्यम">Medium</option>
+
+      <option value="high"
+      data-en="High"
+      data-hi="अधिक">High</option>
+
     </select>
 
   </aside>
 
   <!-- ========== MAIN CONTENT ========== -->
+
   <main class="main-content">
+
     <div id="plantGrid" class="plant-grid"></div>
+
   </main>
 
 </div>
@@ -81,6 +193,7 @@
 <script src="assets/js/main.js"></script>
 <script src="assets/js/theme.js"></script>
 <script src="assets/js/admin.js"></script>
+<script src="assets/js/language.js"></script>
 
 </body>
 </html>
