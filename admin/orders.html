@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PUSHPAK - Orders</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/theme.css">
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+<div class="logo">🌿 PUSHPAK</div>
+
+<nav class="nav">
+
+<a href="index.html"
+data-en="Home"
+data-hi="होम">Home</a>
+
+<a href="plants.html"
+data-en="Plants & Trees"
+data-hi="पौधे और पेड़">Plants & Trees</a>
+
+<a href="garden.html"
+data-en="Garden Tips"
+data-hi="बागवानी टिप्स">Garden Tips</a>
+
+<a href="facts.html"
+data-en="Facts"
+data-hi="तथ्य">Facts</a>
+
+<a href="admin/admin_login.html"
+data-en="Admin"
+data-hi="एडमिन">Admin</a>
+
+<a href="#"
+data-en="About Us"
+data-hi="हमारे बारे में">About Us</a>
+
+</nav>
+
+<div class="header-controls">
+
+<button onclick="toggleTheme()">🌙</button>
+
+<button id="langBtn">हिंदी</button>
+
+<a href="cart.html">🛒</a>
+
+</div>
+
+</header>
+
+
+<!-- ================= PAGE LAYOUT ================= -->
+
+<div class="layout">
+
+<!-- ===== SIDEBAR ===== -->
+
+<aside class="sidebar">
+
+<h3
+data-en="Admin Panel"
+data-hi="एडमिन पैनल">
+Admin Panel
+</h3>
+
+<ul>
+
+<li>
+<a href="admin/dashboard.html"
+data-en="Dashboard"
+data-hi="डैशबोर्ड">
+Dashboard
+</a>
+</li>
+
+<li>
+<a href="admin/add-plant.html"
+data-en="Add Plant"
+data-hi="पौधा जोड़ें">
+Add Plant
+</a>
+</li>
+
+<li>
+<a href="admin/manage-plants.html"
+data-en="Manage Plants"
+data-hi="पौधे प्रबंधित करें">
+Manage Plants
+</a>
+</li>
+
+<li class="active">
+<a href="admin/orders.html"
+data-en="Orders"
+data-hi="ऑर्डर">
+Orders
+</a>
+</li>
+
+<li>
+<a href="admin/users.html"
+data-en="Users"
+data-hi="उपयोगकर्ता">
+Users
+</a>
+</li>
+
+</ul>
+
+</aside>
+
+
+<!-- ===== MAIN CONTENT ===== -->
+
+<main class="main-content">
+
+<h2
+data-en="Orders Management"
+data-hi="ऑर्डर प्रबंधन">
+📦 Orders Management
+</h2>
+
+<table class="orders-table">
+
+<thead>
+
+<tr>
+
+<th data-en="Order ID" data-hi="ऑर्डर आईडी">Order ID</th>
+
+<th data-en="Customer" data-hi="ग्राहक">Customer</th>
+
+<th data-en="Plant" data-hi="पौधा">Plant</th>
+
+<th data-en="Price" data-hi="कीमत">Price</th>
+
+<th data-en="Status" data-hi="स्थिति">Status</th>
+
+<th data-en="Action" data-hi="कार्य">Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="orderTable">
+
+</tbody>
+
+</table>
+
+</main>
+
+</div>
+
+
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/language.js"></script>
+
+
+<script>
+
+fetch("/api/orders")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+const table=document.getElementById("orderTable")
+
+data.forEach(order=>{
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${order.id}</td>
+
+<td>${order.customer}</td>
+
+<td>${order.plant}</td>
+
+<td>₹${order.price}</td>
+
+<td>${order.status}</td>
+
+<td>
+
+<button onclick="updateStatus(${order.id},'Shipped')">Ship</button>
+
+<button onclick="updateStatus(${order.id},'Delivered')">Deliver</button>
+
+</td>
+
+</tr>
+
+`
+
+})
+
+})
+
+
+function updateStatus(id,status){
+
+fetch("/api/update-order",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({id,status})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+alert("Order Updated")
+
+location.reload()
+
+})
+
+}
+
+</script>
+
+
+</body>
+
+</html>
