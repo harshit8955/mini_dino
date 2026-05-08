@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Admin — PUSHPAK</title>
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>🌿 PUSHPAK</h2>
+  <a href="dashboard.html">📊 Dashboard</a>
+  <a href="add-plant.html">➕ Add Plant</a>
+  <a href="manage-plants.html">🪴 Manage Plants</a>
+  <a href="orders.html">📦 Orders</a>
+  <a href="users.html">👥 Users</a>
+  <a href="create-admin.html" class="active">🔐 Create Admin</a>
+  <a href="../index.html">🌐 View Website</a>
+  <a href="../login.html" onclick="localStorage.removeItem('adminLoggedIn')">🚪 Logout</a>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <h2>🔐 Create New Admin</h2>
+
+  <form class="admin-form" onsubmit="event.preventDefault(); createAdmin();">
+
+    <label>Full Name</label>
+    <input type="text" id="name" required placeholder="Enter full name">
+
+    <label>Email / Username</label>
+    <input type="text" id="email" required placeholder="Enter email or username">
+
+    <label>Password</label>
+    <input type="password" id="password" required placeholder="Enter password">
+
+    <button type="submit">Create Admin</button>
+
+  </form>
+
+  <div style="margin-top:30px;">
+    <h2>📋 Existing Admins</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email / Username</th>
+        </tr>
+      </thead>
+      <tbody id="adminList"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- SCRIPTS -->
+<script src="../assets/js/theme.js"></script>
+<script src="../assets/js/session.js"></script>
+<script src="../assets/js/admin.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  loadAdminList();
+});
+
+function loadAdminList(){
+  const admins = JSON.parse(localStorage.getItem("admins")) || [];
+  const tbody = document.getElementById("adminList");
+
+  // Always show default admin first
+  let html = '<tr><td>1</td><td>Admin (Default)</td><td>admin</td></tr>';
+
+  admins.forEach((a, i) => {
+    html += `<tr><td>${i + 2}</td><td>${a.name || "—"}</td><td>${a.email || a.username || "—"}</td></tr>`;
+  });
+
+  tbody.innerHTML = html;
+}
+</script>
+
+</body>
+</html>

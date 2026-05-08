@@ -269,19 +269,10 @@ function searchPlant(){
   });
 }
 
-function toggleTheme(){
-  document.body.classList.toggle('dark');
-  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-  // update icon if exists
-  const btns = document.querySelectorAll('.theme-toggle');
-  btns.forEach(b => b.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙');
-}
+// -------------------- Theme & i18n --------------------
+// NOTE: toggleTheme() is defined in theme.js — do NOT redefine here
 function applySavedTheme(){
-  const t = localStorage.getItem('theme');
-  if (t === 'dark' || t === 'true') {
-    document.body.classList.add('dark');
-    if (t === 'true') localStorage.setItem('theme', 'dark'); // migrate old format
-  }
+  // handled by theme.js automatically
 }
 
 function setLang(lang){

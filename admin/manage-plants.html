@@ -1,35 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Manage Plants</title>
-    <link rel="stylesheet" href="assets/css/admin.css">
-    <link rel="stylesheet" href="assets/css/theme.css">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Plants — PUSHPAK</title>
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
-    <a href="dashboard.html">Dashboard</a>
-    <a href="add-plant.html">Add Plant</a>
-    <a href="manage-plants.html">Manage</a>
-    <a href="orders.html">Orders</a>
-    <a href="index.html">Users</a>
-    <button onclick="toggleTheme()">🌙</button>
-
+  <h2>🌿 PUSHPAK</h2>
+  <a href="dashboard.html">📊 Dashboard</a>
+  <a href="add-plant.html">➕ Add Plant</a>
+  <a href="manage-plants.html" class="active">🪴 Manage Plants</a>
+  <a href="orders.html">📦 Orders</a>
+  <a href="users.html">👥 Users</a>
+  <a href="create-admin.html">🔐 Create Admin</a>
+  <a href="../index.html">🌐 View Website</a>
+  <a href="../login.html" onclick="localStorage.removeItem('adminLoggedIn')">🚪 Logout</a>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 </div>
 
+<!-- CONTENT -->
 <div class="content">
-    <h2>Manage Plants</h2>
 
-    <select id="filterCategory" class="filter">
-        <option value="All">All Plants</option>
-        <option value="Indoor">Indoor</option>
-        <option value="Outdoor">Outdoor</option>
-    </select>
+  <h2>🪴 Manage Plants</h2>
 
-    <div id="plantList" class="plant-grid"></div>
+  <select id="filterCategory" class="filter">
+    <option value="All">All Plants</option>
+    <option value="Indoor">Indoor</option>
+    <option value="Outdoor">Outdoor</option>
+    <option value="flowering">Flowering</option>
+    <option value="succulent">Succulent</option>
+    <option value="fruit">Fruit</option>
+  </select>
+
+  <div id="plantList" class="plant-grid"></div>
+
 </div>
 
-<script src="assets/js/admin.js"></script>
+<!-- SCRIPTS -->
+<script src="../assets/js/theme.js"></script>
+<script src="../assets/js/session.js"></script>
+<script src="../assets/js/admin.js"></script>
+
 </body>
 </html>

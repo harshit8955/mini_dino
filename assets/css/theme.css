@@ -1,173 +1,306 @@
-<<<<<<< HEAD
-/* ================= GLOBAL THEME VARIABLES ================= */
+/* =================================================================
+   theme.css — Global Light / Dark Theme
+   Covers ALL pages: public, admin, cart, plants, details, etc.
+   ================================================================= */
 
+/* ─── CSS Variables ─────────────────────────────────────────────── */
 :root {
-  --bg-light: #f4f6f9;
-  --bg-dark: #121212;
+  --primary:        #2e7d32;
+  --primary-dark:   #1b5e20;
+  --primary-light:  #81c784;
 
-  --card-light: #ffffff;
-  --card-dark: #1e1e1e;
+  --bg:             #f4f6f9;
+  --bg-card:        #ffffff;
+  --bg-sidebar:     #ffffff;
+  --bg-header:      #2e7d32;
+  --bg-input:       #ffffff;
+  --bg-navbar:      #2e7d32;
 
-  --text-light: #333;
-  --text-dark: #ffffff;
+  --text:           #222222;
+  --text-muted:     #666666;
+  --text-nav:       #ffffff;
+  --text-card:      #222222;
 
-  --input-light: #ffffff;
-  --input-dark: #2a2a2a;
+  --border:         #dddddd;
+  --shadow:         0 4px 10px rgba(0, 0, 0, 0.08);
 
-  --border-light: #ddd;
-  --border-dark: #444;
+  --transition:     background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* ================= DEFAULT LIGHT ================= */
-
-body {
-  background: var(--bg-light);
-  color: var(--text-light);
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-/* ================= DARK MODE ================= */
-
+/* ─── Dark Mode Variables ───────────────────────────────────────── */
 body.dark {
-  background: var(--bg-dark);
-  color: var(--text-dark);
+  --bg:             #121212;
+  --bg-card:        #1e1e1e;
+  --bg-sidebar:     #1a1a2e;
+  --bg-header:      #1b5e20;
+  --bg-input:       #2a2a2a;
+  --bg-navbar:      #1b5e20;
+
+  --text:           #f0f0f0;
+  --text-muted:     #aaaaaa;
+  --text-nav:       #ffffff;
+  --text-card:      #f0f0f0;
+
+  --border:         #3a3a3a;
+  --shadow:         0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
-/* ================= CARDS ================= */
-
-body.dark .card,
-body.dark .plant-card {
-  background: var(--card-dark);
-  color: var(--text-dark);
+/* ─── Smooth Transitions ────────────────────────────────────────── */
+body, header, .header, .navbar, nav, aside, .sidebar,
+.card, .plant-card, .cart-item, .login-card, .login-container,
+input, select, textarea, table, th, td, .content,
+.main-content, .layout, .container, .plant-form,
+.filter, .total-box, .orders-table {
+  transition: var(--transition);
 }
 
-/* ================= INPUTS ================= */
-
-body.dark input,
-body.dark select,
-body.dark textarea {
-  background: var(--input-dark);
-  color: var(--text-dark);
-  border: 1px solid var(--border-dark);
-}
-
-/* ================= SEARCH BAR ================= */
-
-body.dark #search {
-  background: var(--input-dark);
-  color: var(--text-dark);
-  border: 1px solid var(--border-dark);
-}
-
-/* ================= FILTER ================= */
-
-body.dark .filter {
-  background: #333;
-  color: white;
-  border: 1px solid #555;
-}
-
-/* ================= NAVBAR ================= */
-
-body.dark .navbar {
-  background: #1b5e20;
-}
-
-/* ================= BUTTONS ================= */
-
-body.dark button {
-  opacity: 0.95;
-}
-
-/* ================= SMOOTH TRANSITION ================= */
-
-* {
-  transition: background 0.3s ease, color 0.3s ease;
-}
-=======
-/* ================= GLOBAL THEME VARIABLES ================= */
-
-:root {
-  --bg-light: #f4f6f9;
-  --bg-dark: #121212;
-
-  --card-light: #ffffff;
-  --card-dark: #1e1e1e;
-
-  --text-light: #333;
-  --text-dark: #ffffff;
-
-  --input-light: #ffffff;
-  --input-dark: #2a2a2a;
-
-  --border-light: #ddd;
-  --border-dark: #444;
-}
-
-/* ================= DEFAULT LIGHT ================= */
-
+/* ─── Base Body ─────────────────────────────────────────────────── */
 body {
-  background: var(--bg-light);
-  color: var(--text-light);
-  transition: background 0.3s ease, color 0.3s ease;
+  background: var(--bg);
+  color: var(--text);
 }
 
-/* ================= DARK MODE ================= */
-
-body.dark {
-  background: var(--bg-dark);
-  color: var(--text-dark);
+/* ─── Public Header (.header class) ────────────────────────────── */
+.header {
+  background: var(--bg-header);
+  color: var(--text-nav);
 }
 
-/* ================= CARDS ================= */
+.header .logo { color: var(--text-nav); }
 
-body.dark .card,
-body.dark .plant-card {
-  background: var(--card-dark);
-  color: var(--text-dark);
+.nav a, .header a { color: var(--text-nav) !important; }
+
+/* ─── Navbar (.navbar class — cart, plants, plant_details) ─────── */
+.navbar {
+  background: var(--bg-navbar);
+  color: var(--text-nav);
 }
 
-/* ================= INPUTS ================= */
-
-body.dark input,
-body.dark select,
-body.dark textarea {
-  background: var(--input-dark);
-  color: var(--text-dark);
-  border: 1px solid var(--border-dark);
+.navbar a, .navbar-right a, .navbar-left a:not(.back-btn) {
+  color: var(--text-nav) !important;
 }
 
-/* ================= SEARCH BAR ================= */
+body.dark .navbar { background: var(--bg-navbar); }
 
-body.dark #search {
-  background: var(--input-dark);
-  color: var(--text-dark);
-  border: 1px solid var(--border-dark);
+/* ─── Sidebar (public: categories / filters) ────────────────────── */
+.sidebar {
+  background: var(--bg-sidebar);
+  color: var(--text);
 }
 
-/* ================= FILTER ================= */
+.sidebar h3, .sidebar label, .sidebar li { color: var(--text); }
 
-body.dark .filter {
-  background: #333;
-  color: white;
-  border: 1px solid #555;
+.sidebar ul li:hover { color: var(--primary); }
+
+.sidebar ul li.active {
+  background: rgba(46, 125, 50, 0.12);
+  color: var(--primary);
+  font-weight: 600;
 }
 
-/* ================= NAVBAR ================= */
-
-body.dark .navbar {
-  background: #1b5e20;
+body.dark .sidebar ul li.active {
+  background: rgba(129, 199, 132, 0.15);
+  color: var(--primary-light);
 }
 
-/* ================= BUTTONS ================= */
-
-body.dark button {
-  opacity: 0.95;
+/* ─── Admin Sidebar ─────────────────────────────────────────────── */
+div.sidebar {
+  background: var(--primary) !important;
 }
 
-/* ================= SMOOTH TRANSITION ================= */
-
-* {
-  transition: background 0.3s ease, color 0.3s ease;
+body.dark div.sidebar {
+  background: var(--primary-dark) !important;
 }
->>>>>>> a500549 (sample commit)
+
+div.sidebar a, div.sidebar h2 {
+  color: #ffffff !important;
+}
+
+div.sidebar a:hover {
+  background: rgba(255,255,255,0.15);
+  border-radius: 6px;
+}
+
+div.sidebar button {
+  background: var(--primary-dark) !important;
+  color: white !important;
+}
+
+/* ─── Cards ─────────────────────────────────────────────────────── */
+.card, .plant-card, .cart-item {
+  background: var(--bg-card);
+  color: var(--text-card);
+  box-shadow: var(--shadow);
+}
+
+body.dark .card, body.dark .plant-card, body.dark .cart-item {
+  background: var(--bg-card);
+  color: var(--text-card);
+}
+
+/* ─── Admin Content Area ────────────────────────────────────────── */
+.content {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ─── Layout / Page background ─────────────────────────────────── */
+.layout, .main-content, .container {
+  background: transparent;
+}
+
+/* ─── Inputs & Selects ──────────────────────────────────────────── */
+input, select, textarea {
+  background: var(--bg-input);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+}
+
+input::placeholder { color: var(--text-muted); }
+
+/* ─── Tables ────────────────────────────────────────────────────── */
+.orders-table, table {
+  background: var(--bg-card);
+  color: var(--text);
+}
+
+th {
+  background: rgba(46, 125, 50, 0.08);
+  color: var(--text);
+}
+
+body.dark th {
+  background: rgba(129, 199, 132, 0.1);
+}
+
+td { color: var(--text); border-color: var(--border); }
+
+tr { border-bottom: 1px solid var(--border); }
+
+/* ─── Login Card ────────────────────────────────────────────────── */
+.login-container {
+  background: var(--bg);
+}
+
+.login-card {
+  background: var(--bg-card);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.login-card label, .login-card h2 { color: var(--text); }
+
+.login-card a { color: var(--text-muted); }
+
+body.dark .login-card { background: #1e2a2e; }
+
+/* ─── Plant Form ────────────────────────────────────────────────── */
+.plant-form {
+  background: var(--bg-card);
+  color: var(--text);
+}
+
+.plant-form label { color: var(--text); }
+
+/* ─── Filter Sidebar Selects ─────────────────────────────────────  */
+.filter {
+  background: var(--bg-input);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+/* ─── Header Controls Buttons ────────────────────────────────────── */
+.header-controls button, .theme-toggle {
+  background: rgba(255,255,255,0.2) !important;
+  color: white !important;
+  border: 1px solid rgba(255,255,255,0.4) !important;
+  border-radius: 6px;
+}
+
+.header-controls button:hover, .theme-toggle:hover {
+  background: rgba(255,255,255,0.35) !important;
+}
+
+/* ─── Back Button ────────────────────────────────────────────────── */
+.back-btn {
+  border-color: rgba(255,255,255,0.6) !important;
+  color: white !important;
+  background: rgba(255,255,255,0.12) !important;
+}
+
+.back-btn:hover {
+  background: rgba(255,255,255,0.28) !important;
+}
+
+/* ─── Total Box (cart) ───────────────────────────────────────────── */
+.total-box {
+  color: var(--text);
+}
+
+/* ─── Error Message ──────────────────────────────────────────────── */
+.error { color: #e53935; }
+
+/* ─── Price Slider ───────────────────────────────────────────────── */
+#priceFilter {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 10px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+  border: none !important;
+}
+
+#priceFilter::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 3px solid var(--bg-card);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+body.dark #priceFilter { background: #3a3a3a; }
+
+body.dark #priceFilter::-webkit-slider-thumb {
+  background: var(--primary-light);
+  border-color: #121212;
+  box-shadow: 0 0 8px rgba(129,199,132,0.6);
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────────── */
+body.dark ::-webkit-scrollbar { background: #1e1e1e; }
+body.dark ::-webkit-scrollbar-thumb { background: #3a3a3a; border-radius: 4px; }
+body.dark ::-webkit-scrollbar-thumb:hover { background: #4a4a4a; }
+
+/* ─── Text helpers ────────────────────────────────────────────────── */
+body.dark p, body.dark span, body.dark li, body.dark h1,
+body.dark h2, body.dark h3, body.dark h4, body.dark h5 {
+  color: var(--text);
+}
+
+/* keep primary-colored text in dark mode */
+body.dark h2.content-title,
+body.dark .content h2 {
+  color: var(--primary-light);
+}
+
+/* ─── Glass card (plant_details) ─────────────────────────────────── */
+body.dark .card {
+  background: rgba(30, 30, 30, 0.7);
+  backdrop-filter: blur(15px);
+}
+
+/* ─── Status badges (orders) ─────────────────────────────────────── */
+body.dark span[style*="background"] {
+  filter: brightness(0.85);
+}

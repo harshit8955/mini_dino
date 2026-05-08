@@ -1,28 +1,33 @@
 /* ================= SESSION PROTECTION ================= */
 
-if(window.location.pathname.includes("admin")) {
-  if(localStorage.getItem("adminLoggedIn") !== "true") {
-    window.location.href = "/admin/admin_login.html";
-  }
-}
+// Only redirect if we're on an admin page (but NOT the login page)
+(function(){
+  const path = window.location.pathname.toLowerCase();
+  const isAdminPage = path.includes("/admin/") || path.includes("\\admin\\");
+  const isLoginPage = path.includes("admin_login") || path.includes("login");
 
-/* Auto logout after 5 minutes */
-let timeout;
+  if(isAdminPage && !isLoginPage){
+    if(localStorage.getItem("adminLoggedIn") !== "true"){
+      window.location.href = "admin_login.html";
+    }
+  }
+})();
+
+/* ================= AUTO LOGOUT (30 min) ================= */
+let _sessionTimeout;
 
 function resetTimer(){
-  clearTimeout(timeout);
-  timeout = setTimeout(logout, 5 * 60 * 1000);
+  clearTimeout(_sessionTimeout);
+  _sessionTimeout = setTimeout(logout, 30 * 60 * 1000);
 }
 
 function logout(){
   localStorage.removeItem("adminLoggedIn");
   localStorage.removeItem("currentUser");
-  localStorage.removeItem("sessionUser");
-  localStorage.removeItem("sessionAdmin");
-  alert("Logged out successfully.");
-  window.location.href = "/login.html";
+  alert("Logged out.");
+  window.location.href = "admin_login.html";
 }
 
-document.onload = resetTimer;
-document.onmousemove = resetTimer;
-document.onkeypress = resetTimer;
+document.addEventListener("mousemove", resetTimer);
+document.addEventListener("keypress", resetTimer);
+document.addEventListener("DOMContentLoaded", resetTimer);

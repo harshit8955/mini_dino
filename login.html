@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Login — PUSHPAK</title>
 
-<link rel="stylesheet" href="assets/css/admin_login.css">
 <link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/admin_login.css">
 </head>
 <body>
 
@@ -42,22 +42,30 @@
 document.getElementById("loginForm").addEventListener("submit", function(e){
   e.preventDefault();
 
-  const user = document.getElementById("username").value;
+  const user = document.getElementById("username").value.trim();
   const pass = document.getElementById("password").value;
   const error = document.getElementById("errorMsg");
 
-  let admins = JSON.parse(localStorage.getItem("admins")) || [
-      { username: "admin", password: "password", role: "admin", name: "Admin" }
-  ];
+  // Default admin ALWAYS works — stored admins are extra accounts
+  const DEFAULT_ADMIN = { username: "admin", password: "password", role: "admin", name: "Admin" };
 
-  const validAdmin = admins.find(a => (a.username === user || a.email === user) && a.password === pass);
+  // Get any custom admins created via dashboard
+  let storedAdmins = [];
+  try { storedAdmins = JSON.parse(localStorage.getItem("admins")) || []; } catch(e){}
+
+  // Combine: default first, then any created admins
+  const allAdmins = [DEFAULT_ADMIN, ...storedAdmins];
+
+  const validAdmin = allAdmins.find(a =>
+      (a.username === user || a.email === user) && a.password === pass
+  );
 
   if(validAdmin){
       localStorage.setItem("currentUser", JSON.stringify(validAdmin));
       localStorage.setItem("adminLoggedIn", "true");
       window.location.href = "admin/dashboard.html";
   } else {
-      error.textContent = "Invalid username or password";
+      error.textContent = "Invalid username or password. Try: admin / password";
   }
 });
 

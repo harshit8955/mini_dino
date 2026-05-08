@@ -84,13 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// ===== THEME TOGGLE (single definition) =====
-function toggleTheme() {
-    document.body.classList.toggle("dark");
-    localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
-    const btns = document.querySelectorAll(".theme-toggle");
-    btns.forEach(b => b.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙");
-}
+// ===== THEME TOGGLE — defined in theme.js, do NOT redefine here =====
 
 
 // ===== DASHBOARD STATS =====

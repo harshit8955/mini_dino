@@ -1,103 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PUSHPAK Admin — Dashboard</title>
-<link rel="stylesheet" href="/assets/css/admin.css">
-<link rel="stylesheet" href="/assets/css/theme.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — PUSHPAK</title>
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body>
 
-<!-- ================= SIDEBAR ================= -->
+<!-- SIDEBAR -->
 <div class="sidebar">
-<h2>🌿 PUSHPAK</h2>
-<a href="/admin/dashboard.html">Dashboard</a>
-<a href="/admin/add-plant.html">Add Plant</a>
-<a href="/admin/manage-plants.html">Manage Plants</a>
-<a href="/admin/orders.html">Orders</a>
-<a href="/admin/users.html">Users</a>
-<a href="/admin/create-admin.html">Create Admin</a>
-<a href="/index.html">View Website</a>
-<a href="/login.html" onclick="logout()">Logout</a>
-<button onclick="toggleTheme()">🌙</button>
+  <h2>🌿 PUSHPAK</h2>
+  <a href="dashboard.html" class="active">📊 Dashboard</a>
+  <a href="add-plant.html">➕ Add Plant</a>
+  <a href="manage-plants.html">🪴 Manage Plants</a>
+  <a href="orders.html">📦 Orders</a>
+  <a href="users.html">👥 Users</a>
+  <a href="create-admin.html">🔐 Create Admin</a>
+  <a href="../index.html">🌐 View Website</a>
+  <a href="../login.html" onclick="localStorage.removeItem('adminLoggedIn')">🚪 Logout</a>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 </div>
 
-<!-- ================= MAIN CONTENT ================= -->
+<!-- CONTENT -->
 <div class="content">
 
   <h2>📊 Admin Dashboard</h2>
 
-  <!-- ===== STATISTICS CARDS ===== -->
-  <div style="display:flex; gap:20px; flex-wrap:wrap; margin-bottom:30px;">
-
-    <div class="card">
-      <div style="font-size:14px;color:#777;">Total Plants</div>
+  <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:30px;">
+    <div class="card" style="flex:1;min-width:180px;">
+      <div style="font-size:13px;color:var(--admin-text-m);">Total Plants</div>
       <div style="font-size:32px;font-weight:700;color:#2e7d32;" id="plantCount">0</div>
     </div>
-
-    <div class="card">
-      <div style="font-size:14px;color:#777;">Total Orders</div>
+    <div class="card" style="flex:1;min-width:180px;">
+      <div style="font-size:13px;color:var(--admin-text-m);">Total Orders</div>
       <div style="font-size:32px;font-weight:700;color:#1565C0;" id="orderCount">0</div>
     </div>
-
-    <div class="card">
-      <div style="font-size:14px;color:#777;">Total Users</div>
+    <div class="card" style="flex:1;min-width:180px;">
+      <div style="font-size:13px;color:var(--admin-text-m);">Total Users</div>
       <div style="font-size:32px;font-weight:700;color:#6a1b9a;" id="userCount">0</div>
     </div>
-
   </div>
 
-  <!-- ===== QUICK ACTIONS ===== -->
-  <h2 style="margin-bottom:15px;">⚡ Quick Actions</h2>
-
+  <h2>⚡ Quick Actions</h2>
   <div style="display:flex;gap:15px;flex-wrap:wrap;">
-
     <div class="card" style="flex:1;min-width:180px;">
-      <button onclick="location.href='/admin/add-plant.html'" style="width:100%;padding:12px;background:#2e7d32;color:white;border:none;border-radius:8px;cursor:pointer;font-size:15px;">
+      <button onclick="location.href='add-plant.html'" style="width:100%;padding:12px;background:#2e7d32;color:white;border:none;border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;">
         ➕ Add New Plant
       </button>
     </div>
-
     <div class="card" style="flex:1;min-width:180px;">
-      <button onclick="location.href='/admin/manage-plants.html'" style="width:100%;padding:12px;background:#0288D1;color:white;border:none;border-radius:8px;cursor:pointer;font-size:15px;">
+      <button onclick="location.href='manage-plants.html'" style="width:100%;padding:12px;background:#0288D1;color:white;border:none;border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;">
         🪴 Manage Plants
       </button>
     </div>
-
     <div class="card" style="flex:1;min-width:180px;">
-      <button onclick="location.href='/admin/create-admin.html'" style="width:100%;padding:12px;background:#7B1FA2;color:white;border:none;border-radius:8px;cursor:pointer;font-size:15px;">
-        👤 Create New Admin
+      <button onclick="location.href='create-admin.html'" style="width:100%;padding:12px;background:#7B1FA2;color:white;border:none;border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;">
+        👤 Create Admin
       </button>
     </div>
-
-    <div class="card" style="flex:1;min-width:180px;">
-      <button onclick="location.href='/admin/orders.html'" style="width:100%;padding:12px;background:#E65100;color:white;border:none;border-radius:8px;cursor:pointer;font-size:15px;">
-        📦 View Orders
-      </button>
-    </div>
-
   </div>
 
 </div>
 
-<!-- ================= SCRIPTS ================= -->
-<script src="/assets/js/session.js"></script>
-<script src="/assets/js/admin.js"></script>
-<script src="/assets/js/main.js"></script>
-<script src="/assets/js/theme.js"></script>
-
-<script>
-function loadDashboardStats(){
-  let plants = JSON.parse(localStorage.getItem("plants")) || [];
-  let orders = JSON.parse(localStorage.getItem("orders")) || [];
-  let users  = JSON.parse(localStorage.getItem("users"))  || [];
-  document.getElementById("plantCount").innerText = plants.length;
-  document.getElementById("orderCount").innerText = orders.length;
-  document.getElementById("userCount").innerText  = users.length;
-}
-document.addEventListener("DOMContentLoaded", loadDashboardStats);
-</script>
+<!-- SCRIPTS -->
+<script src="../assets/js/theme.js"></script>
+<script src="../assets/js/session.js"></script>
+<script src="../assets/js/admin.js"></script>
 
 </body>
 </html>
