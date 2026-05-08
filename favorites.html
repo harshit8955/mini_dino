@@ -1,107 +1,65 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>PUSHPAK - Favorites</title>
-
+<title>PUSHPAK — Favorites</title>
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/theme.css">
-
 </head>
 
-<body onload="loadFav()">
+<body>
 
 <!-- ================= HEADER ================= -->
-
 <header class="header">
 
-<div class="logo">🌿 PUSHPAK</div>
+  <div class="logo">🌿 PUSHPAK</div>
 
-<nav class="nav">
+  <nav class="nav">
 
-<a href="index.html"
-data-en="Home"
-data-hi="होम">Home</a>
+    <a href="javascript:history.back()" class="back-btn" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</a>
 
-<a href="plants.html"
-data-en="Plants & Trees"
-data-hi="पौधे और पेड़">Plants & Trees</a>
+    <a href="index.html" data-en="Home" data-hi="होम">Home</a>
 
-<a href="garden.html"
-data-en="Garden Tips"
-data-hi="बागवानी टिप्स">Garden Tips</a>
+    <a href="plants.html" data-en="Plants &amp; Trees" data-hi="पौधे और पेड़">Plants &amp; Trees</a>
 
-<a href="facts.html"
-data-en="Facts"
-data-hi="तथ्य">Facts</a>
+    <a href="garden.html" data-en="Garden Tips" data-hi="बागवानी टिप्स">Garden Tips</a>
 
-<a href="admin/admin_login.html"
-data-en="Admin"
-data-hi="एडमिन">Admin</a>
+    <a href="facts.html" data-en="Facts" data-hi="तथ्य">Facts</a>
 
-<a href="#"
-data-en="About Us"
-data-hi="हमारे बारे में">About Us</a>
+    <a href="admin/admin_login.html" data-en="Admin" data-hi="एडमिन">Admin</a>
 
-</nav>
+    <a href="#" data-en="About Us" data-hi="हमारे बारे में">About Us</a>
 
-<div class="header-controls">
+  </nav>
 
-<button onclick="toggleTheme()">🌙</button>
-
-<button id="langBtn">हिंदी</button>
-
-<a href="cart.html">🛒</a>
-
-</div>
+  <div class="header-controls">
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    <button id="langBtn" onclick="toggleLanguage()">हिंदी</button>
+    <a href="cart.html">🛒</a>
+  </div>
 
 </header>
 
-
 <!-- ================= PAGE CONTENT ================= -->
-
 <div class="layout">
 
-<main class="main-content">
+  <main class="main-content">
 
-<h2
-data-en="Your Favorite Plants"
-data-hi="आपके पसंदीदा पौधे">
-❤️ Your Favorite Plants
-</h2>
+    <h2 data-en="Your Favorite Plants" data-hi="आपके पसंदीदा पौधे">
+      ❤️ Your Favorite Plants
+    </h2>
 
-<div id="favItems" class="plant-grid"></div>
+    <div id="favItems" class="plant-grid"></div>
 
-</main>
+  </main>
 
 </div>
-
 
 <script src="assets/js/theme.js"></script>
 <script src="assets/js/language.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/admin.js"></script>
 
 </body>
-
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body onload="loadFav()">
-<h2>Favorites</h2>
-<div id="favItems"></div>
-<script src="assets/js/main.js"></script>
-</body>
-
->>>>>>> a500549 (sample commit)
 </html>
