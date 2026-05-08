@@ -1,13 +1,11 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Plant Details</title>
+<title>Plant Details — PUSHPAK</title>
 
 <style>
-/* ===== YOUR SAME CSS (UNCHANGED) ===== */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 :root{--primary:#2e7d32;--glass:rgba(255,255,255,0.15);--glass-dark:rgba(30,30,30,0.6);--blur:blur(15px);}
 body{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);transition:0.3s;}
@@ -15,6 +13,15 @@ body.dark{background:linear-gradient(135deg,#1b1b1b,#121212);color:#fff;}
 .navbar{display:flex;justify-content:space-between;align-items:center;padding:15px 30px;background:var(--primary);color:#fff;}
 .navbar a{color:#fff;text-decoration:none;margin:0 12px;}
 .navbar button{background:#1b5e20;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;}
+.back-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 14px;border:2px solid rgba(255,255,255,0.6);
+  border-radius:20px;font-weight:600;font-size:14px;
+  color:white !important;text-decoration:none;
+  background:rgba(255,255,255,0.12);backdrop-filter:blur(4px);
+  transition:all 0.25s ease;margin-right:10px;
+}
+.back-btn:hover{background:rgba(255,255,255,0.28);border-color:white;transform:translateX(-3px);}
 .container{max-width:1200px;margin:40px auto;padding:20px;}
 .card{backdrop-filter:var(--blur);background:var(--glass);padding:30px;border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,0.2);transition:0.3s;}
 body.dark .card{background:var(--glass-dark);}
@@ -31,7 +38,10 @@ body.dark .card{background:var(--glass-dark);}
 <body>
 
 <div class="navbar">
-  <div>🌿 Pushpak</div>
+  <div>
+    <a href="javascript:history.back()" class="back-btn">⬅ Back</a>
+    🌿 Pushpak
+  </div>
   <div>
     <a href="index.html">Home</a>
     <a href="plants.html">Plants</a>
@@ -59,29 +69,8 @@ function toggleTheme(){
   localStorage.setItem("theme", document.body.classList.contains("dark"));
 }
 
-if(localStorage.getItem("theme")==="true"){
+if(localStorage.getItem("theme")==="true" || localStorage.getItem("theme")==="dark"){
   document.body.classList.add("dark");
-}
-
-/* ================= DUMMY DATA (IF EMPTY) ================= */
-if(!localStorage.getItem("plants")){
-  const demoPlants = [
-    {
-      id:1,
-      name:"Rose Plant",
-      category:"Flower",
-      price:250,
-      image:"https://images.unsplash.com/photo-1490750967868-88aa4486c946"
-    },
-    {
-      id:2,
-      name:"Snake Plant",
-      category:"Indoor",
-      price:400,
-      image:"https://images.unsplash.com/photo-1501004318641-b39e6451bec6"
-    }
-  ];
-  localStorage.setItem("plants", JSON.stringify(demoPlants));
 }
 
 /* ================= GET PLANT BY ID ================= */
@@ -108,9 +97,11 @@ function decreaseQty(){
 /* ================= ADD TO CART ================= */
 function addToCart(id){
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.push({id:id, qty:quantity});
+  const existing = cart.find(i => i.id === id);
+  if(existing) existing.qty += quantity;
+  else cart.push({id:id, qty:quantity});
   localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Added to cart");
+  alert("Added to cart!");
 }
 
 /* ================= FAVORITE ================= */
@@ -118,17 +109,18 @@ function toggleFavorite(id){
   let fav = JSON.parse(localStorage.getItem("fav")) || [];
   if(fav.includes(id)){
     fav = fav.filter(f => f !== id);
+    alert("Removed from favorites");
   } else {
     fav.push(id);
+    alert("Added to favorites!");
   }
   localStorage.setItem("fav", JSON.stringify(fav));
-  alert("Favorite updated");
 }
 
 /* ================= LOAD PLANT DETAILS ================= */
 document.addEventListener("DOMContentLoaded", function(){
   const params = new URLSearchParams(location.search);
-  const id = parseInt(params.get('id')) || 1;  // default plant
+  const id = parseInt(params.get('id')) || 1;
 
   const plant = getPlantById(id);
   const el = document.getElementById("plantDetail");
@@ -139,23 +131,19 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
   el.innerHTML = `
-    <div style="display:flex;gap:20px;flex-wrap:wrap;">
-      <img src="${plant.image}" style="max-width:420px;width:100%;object-fit:cover">
-      <div style="max-width:520px">
-        <h2>${plant.name}</h2>
-        <p>Category: <strong>${plant.category}</strong></p>
-        <p>Price: <strong>₹${plant.price}</strong></p>
+    <div style="display:flex;gap:30px;flex-wrap:wrap;align-items:flex-start;">
+      <img src="${plant.image || plant.image_url || ''}" style="max-width:420px;width:100%;object-fit:cover;border-radius:12px;">
+      <div style="max-width:520px;flex:1;">
+        <h2 style="font-size:28px;margin-bottom:10px;">${plant.name}</h2>
+        <p style="margin-bottom:6px;">Category: <strong>${plant.category}</strong></p>
+        <p style="font-size:24px;color:var(--primary);font-weight:700;margin:12px 0;">₹${plant.price}</p>
 
-        <div style="margin-top:15px">
-          <button class="add-btn" onclick="addToCart(${plant.id})">
-            Add to Cart
-          </button>
-          <button class="fav-btn" onclick="toggleFavorite(${plant.id})">
-            ❤ Favorite
-          </button>
+        <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="add-btn" onclick="addToCart(${plant.id})">🛒 Add to Cart</button>
+          <button class="fav-btn" onclick="toggleFavorite(${plant.id})">❤ Favorite</button>
         </div>
 
-        <p style="margin-top:20px;color:#666">
+        <p style="margin-top:20px;color:#666;line-height:1.6;">
           Beautiful plant — care instructions and description can be added from admin panel.
         </p>
       </div>
@@ -166,171 +154,3 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </body>
 </html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Plant Details</title>
-
-<style>
-/* ===== YOUR SAME CSS (UNCHANGED) ===== */
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-:root{--primary:#2e7d32;--glass:rgba(255,255,255,0.15);--glass-dark:rgba(30,30,30,0.6);--blur:blur(15px);}
-body{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);transition:0.3s;}
-body.dark{background:linear-gradient(135deg,#1b1b1b,#121212);color:#fff;}
-.navbar{display:flex;justify-content:space-between;align-items:center;padding:15px 30px;background:var(--primary);color:#fff;}
-.navbar a{color:#fff;text-decoration:none;margin:0 12px;}
-.navbar button{background:#1b5e20;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;}
-.container{max-width:1200px;margin:40px auto;padding:20px;}
-.card{backdrop-filter:var(--blur);background:var(--glass);padding:30px;border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,0.2);transition:0.3s;}
-body.dark .card{background:var(--glass-dark);}
-.card img{transition:0.4s ease;border-radius:12px;}
-.card img:hover{transform:scale(1.08);}
-.card button{padding:10px 18px;border:none;border-radius:8px;cursor:pointer;margin:5px 5px 5px 0;transition:0.3s;}
-.add-btn{background:var(--primary);color:white;}
-.fav-btn{background:#e53935;color:white;}
-.qty-box{display:flex;align-items:center;gap:10px;margin-top:20px;}
-.qty-box button{width:35px;height:35px;font-size:18px;background:#ddd;}
-</style>
-</head>
-
-<body>
-
-<div class="navbar">
-  <div>🌿 Pushpak</div>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="plants.html">Plants</a>
-    <a href="cart.html">Cart</a>
-    <button onclick="toggleTheme()">🌙</button>
-  </div>
-</div>
-
-<div class="container">
-  <div id="plantDetail" class="card"></div>
-
-  <div class="qty-box">
-    <button onclick="decreaseQty()">-</button>
-    <span id="qty">1</span>
-    <button onclick="increaseQty()">+</button>
-  </div>
-</div>
-
-<script>
-
-/* ================= DARK MODE ================= */
-function toggleTheme(){
-  document.body.classList.toggle("dark");
-  localStorage.setItem("theme", document.body.classList.contains("dark"));
-}
-
-if(localStorage.getItem("theme")==="true"){
-  document.body.classList.add("dark");
-}
-
-/* ================= DUMMY DATA (IF EMPTY) ================= */
-if(!localStorage.getItem("plants")){
-  const demoPlants = [
-    {
-      id:1,
-      name:"Rose Plant",
-      category:"Flower",
-      price:250,
-      image:"https://images.unsplash.com/photo-1490750967868-88aa4486c946"
-    },
-    {
-      id:2,
-      name:"Snake Plant",
-      category:"Indoor",
-      price:400,
-      image:"https://images.unsplash.com/photo-1501004318641-b39e6451bec6"
-    }
-  ];
-  localStorage.setItem("plants", JSON.stringify(demoPlants));
-}
-
-/* ================= GET PLANT BY ID ================= */
-function getPlantById(id){
-  let plants = JSON.parse(localStorage.getItem("plants")) || [];
-  return plants.find(p => p.id === id);
-}
-
-/* ================= QUANTITY ================= */
-let quantity = 1;
-
-function increaseQty(){
-  quantity++;
-  document.getElementById("qty").innerText = quantity;
-}
-
-function decreaseQty(){
-  if(quantity>1){
-    quantity--;
-    document.getElementById("qty").innerText = quantity;
-  }
-}
-
-/* ================= ADD TO CART ================= */
-function addToCart(id){
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.push({id:id, qty:quantity});
-  localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Added to cart");
-}
-
-/* ================= FAVORITE ================= */
-function toggleFavorite(id){
-  let fav = JSON.parse(localStorage.getItem("fav")) || [];
-  if(fav.includes(id)){
-    fav = fav.filter(f => f !== id);
-  } else {
-    fav.push(id);
-  }
-  localStorage.setItem("fav", JSON.stringify(fav));
-  alert("Favorite updated");
-}
-
-/* ================= LOAD PLANT DETAILS ================= */
-document.addEventListener("DOMContentLoaded", function(){
-  const params = new URLSearchParams(location.search);
-  const id = parseInt(params.get('id')) || 1;  // default plant
-
-  const plant = getPlantById(id);
-  const el = document.getElementById("plantDetail");
-
-  if(!plant){
-    el.innerHTML = "<p>Plant not found.</p>";
-    return;
-  }
-
-  el.innerHTML = `
-    <div style="display:flex;gap:20px;flex-wrap:wrap;">
-      <img src="${plant.image}" style="max-width:420px;width:100%;object-fit:cover">
-      <div style="max-width:520px">
-        <h2>${plant.name}</h2>
-        <p>Category: <strong>${plant.category}</strong></p>
-        <p>Price: <strong>₹${plant.price}</strong></p>
-
-        <div style="margin-top:15px">
-          <button class="add-btn" onclick="addToCart(${plant.id})">
-            Add to Cart
-          </button>
-          <button class="fav-btn" onclick="toggleFavorite(${plant.id})">
-            ❤ Favorite
-          </button>
-        </div>
-
-        <p style="margin-top:20px;color:#666">
-          Beautiful plant — care instructions and description can be added from admin panel.
-        </p>
-      </div>
-    </div>
-  `;
-});
-
-</script>
-</body>
-</html>
->>>>>>> a500549 (sample commit)

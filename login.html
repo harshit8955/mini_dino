@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login — PUSHPAK</title>
+
+<link rel="stylesheet" href="assets/css/admin_login.css">
+<link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body>
+
+<div class="login-container">
+  <div class="login-card">
+
+    <h2>🌿 Admin Login</h2>
+
+    <form id="loginForm">
+      <label>Username</label>
+      <input type="text" id="username" required placeholder="Enter username">
+
+      <label>Password</label>
+      <input type="password" id="password" required placeholder="Enter password">
+
+      <button type="submit">Login</button>
+
+      <p id="errorMsg" class="error"></p>
+    </form>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:15px;">
+      <a href="index.html" style="text-decoration:none;color:var(--text-color);font-size:14px;display:flex;align-items:center;gap:5px;">
+        ⬅ Back to Home
+      </a>
+      <button class="theme-toggle" onclick="toggleTheme()" style="margin-top:0;">🌙</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ===== LOGIN ===== */
+document.getElementById("loginForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+  const error = document.getElementById("errorMsg");
+
+  let admins = JSON.parse(localStorage.getItem("admins")) || [
+      { username: "admin", password: "password", role: "admin", name: "Admin" }
+  ];
+
+  const validAdmin = admins.find(a => (a.username === user || a.email === user) && a.password === pass);
+
+  if(validAdmin){
+      localStorage.setItem("currentUser", JSON.stringify(validAdmin));
+      localStorage.setItem("adminLoggedIn", "true");
+      window.location.href = "admin/dashboard.html";
+  } else {
+      error.textContent = "Invalid username or password";
+  }
+});
+
+/* ===== DARK MODE ===== */
+function toggleTheme(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+}
+
+if(localStorage.getItem("theme")==="dark"){
+  document.body.classList.add("dark");
+}
+</script>
+
+</body>
+</html>
