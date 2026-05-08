@@ -154,12 +154,15 @@
     /* ================= DARK MODE ================= */
     function toggleTheme() {
       document.body.classList.toggle("dark");
-      localStorage.setItem("theme",
-        document.body.classList.contains("dark"));
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      document.querySelectorAll(".theme-toggle").forEach(b => b.textContent = isDark ? "☀️" : "🌙");
     }
 
-    if (localStorage.getItem("theme") === "true") {
+    const _t = localStorage.getItem("theme");
+    if (_t === "dark" || _t === "true") {
       document.body.classList.add("dark");
+      if (_t === "true") localStorage.setItem("theme", "dark");
     }
 
     /* ================= LOAD CART ================= */

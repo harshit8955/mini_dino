@@ -269,13 +269,19 @@ function searchPlant(){
   });
 }
 
-// -------------------- Theme & i18n --------------------
 function toggleTheme(){
   document.body.classList.toggle('dark');
   localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+  // update icon if exists
+  const btns = document.querySelectorAll('.theme-toggle');
+  btns.forEach(b => b.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙');
 }
 function applySavedTheme(){
-  if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+  const t = localStorage.getItem('theme');
+  if (t === 'dark' || t === 'true') {
+    document.body.classList.add('dark');
+    if (t === 'true') localStorage.setItem('theme', 'dark'); // migrate old format
+  }
 }
 
 function setLang(lang){

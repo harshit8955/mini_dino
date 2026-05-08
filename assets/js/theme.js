@@ -1,67 +1,31 @@
-<<<<<<< HEAD
-/* ================= THEME SYSTEM ================= */
+/* ================= THEME SYSTEM — Single Source of Truth ================= */
 
+// Always save as "dark" or "light" string (never "true"/"false")
 function toggleTheme() {
   document.body.classList.toggle("dark");
-
   const isDark = document.body.classList.contains("dark");
-  localStorage.setItem("theme", isDark);
-
+  localStorage.setItem("theme", isDark ? "dark" : "light");
   updateThemeIcon();
 }
 
 function updateThemeIcon() {
-  const btn = document.querySelector(".theme-toggle");
-  if (!btn) return;
-
-  if (document.body.classList.contains("dark")) {
-    btn.textContent = "☀️";
-  } else {
-    btn.textContent = "🌙";
-  }
+  const btns = document.querySelectorAll(".theme-toggle, [onclick='toggleTheme()']");
+  btns.forEach(btn => {
+    btn.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+  });
 }
 
-/* ================= LOAD SAVED THEME ================= */
+/* ================= APPLY SAVED THEME ================= */
+(function applyThemeImmediately() {
+  const saved = localStorage.getItem("theme");
+  // Handle both old "true"/"false" format and new "dark"/"light" format
+  if (saved === "dark" || saved === "true") {
+    document.body.classList.add("dark");
+    // Migrate old format
+    if (saved === "true") localStorage.setItem("theme", "dark");
+  }
+})();
 
 document.addEventListener("DOMContentLoaded", function () {
-
-  if (localStorage.getItem("theme") === "true") {
-    document.body.classList.add("dark");
-  }
-
   updateThemeIcon();
 });
-=======
-/* ================= THEME SYSTEM ================= */
-
-function toggleTheme() {
-  document.body.classList.toggle("dark");
-
-  const isDark = document.body.classList.contains("dark");
-  localStorage.setItem("theme", isDark);
-
-  updateThemeIcon();
-}
-
-function updateThemeIcon() {
-  const btn = document.querySelector(".theme-toggle");
-  if (!btn) return;
-
-  if (document.body.classList.contains("dark")) {
-    btn.textContent = "☀️";
-  } else {
-    btn.textContent = "🌙";
-  }
-}
-
-/* ================= LOAD SAVED THEME ================= */
-
-document.addEventListener("DOMContentLoaded", function () {
-
-  if (localStorage.getItem("theme") === "true") {
-    document.body.classList.add("dark");
-  }
-
-  updateThemeIcon();
-});
->>>>>>> a500549 (sample commit)

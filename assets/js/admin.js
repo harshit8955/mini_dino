@@ -5,10 +5,11 @@
 // ===== SINGLE DOMContentLoaded INIT =====
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Theme
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark" || savedTheme === "true") {
+    // Apply theme
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark" || saved === "true") {
         document.body.classList.add("dark");
+        if (saved === "true") localStorage.setItem("theme", "dark"); // migrate
     }
 
     // Dashboard stats (only if elements exist)
@@ -87,6 +88,8 @@ document.addEventListener("DOMContentLoaded", function () {
 function toggleTheme() {
     document.body.classList.toggle("dark");
     localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+    const btns = document.querySelectorAll(".theme-toggle");
+    btns.forEach(b => b.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙");
 }
 
 
